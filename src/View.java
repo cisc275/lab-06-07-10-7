@@ -102,7 +102,7 @@ public class View extends JPanel{
 		 */
     	BufferedImage bufferedImage;
     	try {
-    		bufferedImage = ImageIO.read(new File("src/"+filename));
+    		bufferedImage = ImageIO.read(new File("src/orc/"+filename));
     		return bufferedImage;
     	} catch (IOException e) {
     		e.printStackTrace();
