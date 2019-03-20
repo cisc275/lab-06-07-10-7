@@ -42,10 +42,11 @@ public class Model{
 		return direction;
 	}
 	
-	public void updateLocationAndDirection() {
+	public void updateLocationAndDirection(boolean run) {
 		/*
 		 * Changes the increment based on the direction 
 		 */
+		if(run) {
 		checkCollision();
 		switch (direction) {
 			case NORTH: //north
@@ -89,6 +90,7 @@ public class Model{
 				y-=yIncr;
 				x-=xIncr;
 				break;
+		}
 		}
 		
 	}

@@ -16,7 +16,7 @@ public class Controller {
 		for(int i = 0; i < 5000; i++)
 		{
 			//increment the x and y coordinates, alter direction if necessary
-			model.updateLocationAndDirection();
+			model.updateLocationAndDirection(view.getStartStop());
 			//update the view
 			view.update(model.getX(), model.getY(), model.getDirect());
 		}
