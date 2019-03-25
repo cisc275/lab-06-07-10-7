@@ -23,27 +23,13 @@ public class Controller implements ActionListener{
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		System.out.println("Model Initiaized");
 		view.b1.addActionListener(this);
-//		view.b1.addActionListener(new ActionListener(){
-//    		@Override
-//    		public void actionPerformed(ActionEvent a)
-//    		{
-//    			start_stop=!(start_stop);
-//    		}
-//    	});
 		
 		drawAction = new AbstractAction(){
-    		/**
-			 * 
-			 */
-
-
 			public void actionPerformed(ActionEvent e){
     			//increment the x and y coordinates, alter direction if necessary
 				model.updateLocationAndDirection(start_stop);
     			//update the view
     			view.update(model.getX(), model.getY(), model.getDirect(), start_stop);
-
-
     		}
     	};
 	}
@@ -53,35 +39,17 @@ public class Controller implements ActionListener{
 		start_stop=!(start_stop);
 	}
 	
-	
         //run the simulation
 	public void start(){
 	
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
+				
 				Timer t = new Timer(drawDelay, drawAction);
 				t.start();
 				
 			}
 		});
-		
-//		for(int i = 0; i < 5000; i++)
-//		{
-//			//increment the x and y coordinates, alter direction if necessary
-//			
-//			model.updateLocationAndDirection(start_stop);
-//			//update the view
-//			view.update(model.getX(), model.getY(), model.getDirect(), start_stop);
-//		}
 	}
-	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable(){
-//			public void run(){
-//				Controller c = new Controller();
-//				Timer t = new Timer(c.drawDelay, c.drawAction);
-//				t.start();
-//			}
-//		});
-//	}
+
 }

@@ -32,7 +32,7 @@ public class View extends JPanel{
 	int frameNum=0;
 	final static int frameWidth = 500;
 	final static int frameHeight = 300;
-	Direction direction;
+	Direction direction=Direction.SOUTHEAST;
 	int xPos=0;
 	int yPos=0;
 	
@@ -62,13 +62,6 @@ public class View extends JPanel{
 
     	b1 = new JButton("Test");
     	b1.setBounds(50,100,50,50);
-//    	b1.addActionListener(new ActionListener(){
-//    		@Override
-//    		public void actionPerformed(ActionEvent a)
-//    		{
-//    			start_stop=!(start_stop);
-//    		}
-//    	});
     	
 	
 		
@@ -104,7 +97,7 @@ public class View extends JPanel{
 		xPos=x;
 		yPos=y;
 		if (start_stop) {
-		frame.repaint();
+			frame.repaint();
 		}
 		try {
 			Thread.sleep(100);
@@ -139,8 +132,9 @@ public class View extends JPanel{
 			g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
 		}
 		catch(NullPointerException e)	{
-			
+			System.out.println(e);
 		}
+		
 	}
 	
 }
