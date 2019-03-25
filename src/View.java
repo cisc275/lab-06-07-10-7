@@ -25,7 +25,7 @@ import javax.swing.JButton;
 
 public class View extends JPanel{
 
-	protected JButton b1;
+	public JButton b1;
 	final static int imageWidth=165;
 	final static int imageHeight=165;
 	final int frameCount =10;
@@ -33,9 +33,8 @@ public class View extends JPanel{
 	final static int frameWidth = 500;
 	final static int frameHeight = 300;
 	Direction direction;
-	int xPos;
-	int yPos;
-	private boolean start_stop = true;
+	int xPos=0;
+	int yPos=0;
 	
 	String[] fileArray = new String [] {"orc_forward_north.png", "orc_forward_northeast.png", 
 			"orc_forward_east.png", "orc_forward_southeast.png", "orc_forward_south.png",
@@ -63,13 +62,13 @@ public class View extends JPanel{
 
     	b1 = new JButton("Test");
     	b1.setBounds(50,100,50,50);
-    	b1.addActionListener(new ActionListener(){
-    		@Override
-    		public void actionPerformed(ActionEvent a)
-    		{
-    			start_stop=!(start_stop);
-    		}
-    	});
+//    	b1.addActionListener(new ActionListener(){
+//    		@Override
+//    		public void actionPerformed(ActionEvent a)
+//    		{
+//    			start_stop=!(start_stop);
+//    		}
+//    	});
     	
 	
 		
@@ -79,8 +78,6 @@ public class View extends JPanel{
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
-    	
-
     	frame.setVisible(true);	
     	
 	}
@@ -98,10 +95,11 @@ public class View extends JPanel{
 		return imageHeight;
 	}
 	
-	public void update(int x, int y, Direction d) {
+	public void update(int x, int y, Direction d, boolean start_stop) {
 		/*
 		 * Calls the updates the frame and calls the repaint function
 		 */
+		System.out.println("there");
 		frameNum = (frameNum +1) % frameCount;
 		direction = d;
 		xPos=x;
@@ -138,10 +136,13 @@ public class View extends JPanel{
 		 * Draws the picture to the screen
 		 */
 
-		g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);	
+			System.out.printf("%d",xPos);
+		try {
+			g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
+		}
+		catch(NullPointerException e)	{
+			
+		}
 	}
 	
-	public boolean getStartStop() {
-		return start_stop;
-	}
 }
