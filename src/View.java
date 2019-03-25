@@ -99,7 +99,6 @@ public class View extends JPanel{
 		/*
 		 * Calls the updates the frame and calls the repaint function
 		 */
-		System.out.println("there");
 		frameNum = (frameNum +1) % frameCount;
 		direction = d;
 		xPos=x;
@@ -136,7 +135,6 @@ public class View extends JPanel{
 		 * Draws the picture to the screen
 		 */
 
-			System.out.printf("%d",xPos);
 		try {
 			g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
 		}
