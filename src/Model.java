@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+
 /**
  * Model: Contains all the state and logic
  * Does not contain anything about images or graphics, must ask view for that
@@ -23,6 +25,8 @@ public class Model{
     private boolean up;
     private boolean backward;
     private boolean down;
+    
+    final int drawDelay = 30;
 	
 	public Model(int w, int h, int imgW, int imgH)
 	{
@@ -42,10 +46,16 @@ public class Model{
 		return direction;
 	}
 	
-	public void updateLocationAndDirection() {
+	public int getDelay() {
+		return drawDelay;
+	}
+	
+	
+	public void updateLocationAndDirection(boolean run) {
 		/*
 		 * Changes the increment based on the direction 
 		 */
+		if(run) {
 		checkCollision();
 		switch (direction) {
 			case NORTH: //north
@@ -90,8 +100,10 @@ public class Model{
 				x-=xIncr;
 				break;
 		}
+		}
 		
-	}
+		
+}
 	
 	private void checkCollision() {
 		/*

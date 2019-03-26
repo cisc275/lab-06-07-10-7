@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 
 
 /**
@@ -23,15 +25,17 @@ import javax.swing.JPanel;
 
 public class View extends JPanel{
 
+	public JButton b1;
 	final static int imageWidth=165;
 	final static int imageHeight=165;
 	final int frameCount =10;
 	int frameNum=0;
 	final static int frameWidth = 500;
 	final static int frameHeight = 300;
-	Direction direction;
-	int xPos;
-	int yPos;
+	Direction direction=Direction.SOUTHEAST;
+	int xPos=0;
+	int yPos=0;
+	
 	String[] fileArray = new String [] {"orc_forward_north.png", "orc_forward_northeast.png", 
 			"orc_forward_east.png", "orc_forward_southeast.png", "orc_forward_south.png",
 			"orc_forward_southwest.png","orc_forward_west.png","orc_forward_northwest.png"};
@@ -55,9 +59,14 @@ public class View extends JPanel{
     		picMap.put(fileArray[j].substring(12, fileArray[j].length()-4), pics[j]);
     		
     	}
-		
+
+    	b1 = new JButton("Test");
+    	b1.setBounds(50,100,50,50);
+    	
+	
 		
 		frame = new JFrame();
+		frame.add(b1);
 		frame.getContentPane().add(this);
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +88,7 @@ public class View extends JPanel{
 		return imageHeight;
 	}
 	
-	public void update(int x, int y, Direction d) {
+	public void update(int x, int y, Direction d, boolean start_stop) {
 		/*
 		 * Calls the updates the frame and calls the repaint function
 		 */
@@ -87,12 +96,15 @@ public class View extends JPanel{
 		direction = d;
 		xPos=x;
 		yPos=y;
-		frame.repaint();
+		if (start_stop) {
+			frame.repaint();
+		}
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		
 	}
 	
@@ -102,7 +114,7 @@ public class View extends JPanel{
 		 */
     	BufferedImage bufferedImage;
     	try {
-    		bufferedImage = ImageIO.read(new File("../src/orc/"+filename));
+    		bufferedImage = ImageIO.read(new File("src/orc/"+filename));
     		return bufferedImage;
     	} catch (IOException e) {
     		e.printStackTrace();
@@ -115,7 +127,14 @@ public class View extends JPanel{
 		/*
 		 * Draws the picture to the screen
 		 */
-		g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);	
+
+		try {
+			g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
+		}
+		catch(NullPointerException e)	{
+			System.out.println(e);
+		}
+		
 	}
 	
 }
