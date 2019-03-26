@@ -50,7 +50,6 @@ public class Model{
 		return drawDelay;
 	}
 	
-	
 	public void updateLocationAndDirection(boolean run) {
 		/*
 		 * Changes the increment based on the direction 

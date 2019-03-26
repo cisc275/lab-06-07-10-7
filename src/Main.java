@@ -6,7 +6,6 @@ public class Main {
 		
 		Controller c = new Controller();
 		c.start();
-		//Tell me if you see this
 	}
 
 }
