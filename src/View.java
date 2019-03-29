@@ -23,6 +23,7 @@ import javax.swing.JButton;
  * load images for all direction (an image should only be loaded once!!! why?)
  **/
 
+//test 
 public class View extends JPanel{
 
 	public JButton b1;
