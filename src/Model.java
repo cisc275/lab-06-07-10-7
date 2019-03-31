@@ -26,7 +26,6 @@ public class Model{
     private boolean backward;
     private boolean down;
     
-    final int drawDelay = 30;
 	
 	public Model(int w, int h, int imgW, int imgH)
 	{
@@ -44,10 +43,6 @@ public class Model{
 	
 	public Direction getDirect() {
 		return direction;
-	}
-	
-	public int getDelay() {
-		return drawDelay;
 	}
 	
 	public void updateLocationAndDirection(boolean run) {

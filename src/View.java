@@ -32,17 +32,23 @@ public class View extends JPanel{
 	int frameNum=0;
 	final static int frameWidth = 500;
 	final static int frameHeight = 300;
-	Direction direction=Direction.SOUTHEAST;
+	Direction direction = Direction.SOUTHEAST;
 	int xPos=0;
 	int yPos=0;
+	boolean run = true;
 	
 	String[] fileArray = new String [] {"orc_forward_north.png", "orc_forward_northeast.png", 
 			"orc_forward_east.png", "orc_forward_southeast.png", "orc_forward_south.png",
 			"orc_forward_southwest.png","orc_forward_west.png","orc_forward_northwest.png"};
+	String[] idleArray = new String [] {"orc_idle_east.png", "orc_idle_west.png", 
+			"orc_idle_north.png", "orc_idle_south.png","orc_idle_northeast.png", 
+			"orc_idle_southeast.png", "orc_idle_northwest.png", "orc_idle_southwest.png"};
 	JFrame frame;
 	
 	BufferedImage[][]pics;
+	BufferedImage[][]idlePics;
 	HashMap<String, BufferedImage[]> picMap;
+	HashMap<String, BufferedImage[]> idlePicMap;
 	
 	View(){
 		/* Constructor for view()
@@ -51,19 +57,25 @@ public class View extends JPanel{
 		 */
 		picMap = new HashMap<String, BufferedImage[]>();
 		pics = new BufferedImage[8][10];
+		idlePicMap = new HashMap<String, BufferedImage[]>();
+		idlePics = new BufferedImage[8][10];
+		/* Idle changes: added idleArray, idlePicMap, & idlePics to store the 
+		 *  idle images in the same way as forward images & frames
+		 */
+		
 		for (int j = 0; j<fileArray.length; j++) {
-    		BufferedImage img = createImage(fileArray[j]);
-    		for(int i = 0; i < frameCount; i++) {
-    			pics[j][i] = img.getSubimage(imageWidth*i, 0, imageWidth, imageHeight);
-    		}
-    		picMap.put(fileArray[j].substring(12, fileArray[j].length()-4), pics[j]);
-    		
-    	}
+			BufferedImage img = createImage(fileArray[j]);
+			BufferedImage idleImg = createImage(idleArray[j]);
+			for(int i = 0; i < frameCount; i++) {
+				pics[j][i] = img.getSubimage(imageWidth*i, 0, imageWidth, imageHeight);
+				idlePics[j][i] = idleImg.getSubimage(imageWidth*i, 0, imageWidth, imageHeight);
+			}
+			picMap.put(fileArray[j].substring(12, fileArray[j].length()-4), pics[j]);
+			idlePicMap.put(idleArray[j].substring(9, idleArray[j].length()-4), idlePics[j]);	
+		}	
 
-    	b1 = new JButton("Test");
+    	b1 = new JButton("Stop");
     	b1.setBounds(50,100,50,50);
-    	
-	
 		
 		frame = new JFrame();
 		frame.add(b1);
@@ -92,13 +104,17 @@ public class View extends JPanel{
 		/*
 		 * Calls the updates the frame and calls the repaint function
 		 */
+		run = start_stop;
 		frameNum = (frameNum +1) % frameCount;
 		direction = d;
 		xPos=x;
 		yPos=y;
-		if (start_stop) {
-			frame.repaint();
-		}
+
+		frame.repaint();
+		/* changed repaint to always run,
+		 * switched control of images to paint function
+		 */
+		
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -129,7 +145,17 @@ public class View extends JPanel{
 		 */
 
 		try {
-			g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
+			if(run) {
+				g.drawImage((picMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
+			}
+			else {
+				g.drawImage((idlePicMap.get(direction.getName()))[frameNum], xPos, yPos, Color.gray, this);
+			}
+			/* only draws running images when running,
+			 * draws idle images if stop button is pressed,
+			 * draws from idlePicMap.
+			 */
+			
 		}
 		catch(NullPointerException e)	{
 			System.out.println(e);
