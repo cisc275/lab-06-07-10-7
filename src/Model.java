@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+
 /**
  * Model: Contains all the state and logic
  * Does not contain anything about images or graphics, must ask view for that
@@ -23,6 +25,7 @@ public class Model{
     private boolean up;
     private boolean backward;
     private boolean down;
+    
 	
 	public Model(int w, int h, int imgW, int imgH)
 	{
@@ -93,7 +96,8 @@ public class Model{
 		}
 		}
 		
-	}
+		
+}
 	
 	private void checkCollision() {
 		/*
