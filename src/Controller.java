@@ -29,8 +29,10 @@ public class Controller implements ActionListener, KeyListener{
 		view.frame.addKeyListener(this);
 		  
 		
-		drawAction = new AbstractAction(){
-			public void actionPerformed(ActionEvent e){
+		drawAction = new AbstractAction()
+    {
+			public void actionPerformed(ActionEvent e)
+      {
     			//increment the x and y coordinates, alter direction if necessary
 				model.updateLocationAndDirection(start_stop,dirKey);			
     			//update the view
@@ -69,13 +71,13 @@ public class Controller implements ActionListener, KeyListener{
 	{
 		EventQueue.invokeLater(new Runnable()
 		{
-			public void run(){
+			public void run()
+      {
 				Timer t = new Timer(drawDelay, drawAction);
 				t.start();
 			}
 		});
 	}
-
-
-
 }
+
+
