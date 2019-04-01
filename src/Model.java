@@ -45,22 +45,22 @@ public class Model{
 		return direction;
 	}
 	
-	public void updateLocationAndDirection(boolean run) {
+	public void updateLocationAndDirection(boolean run, int e) {
 		/*
 		 * Changes the increment based on the direction 
 		 */
+		keyToDirec(e);
 		if(run) {
 		checkCollision();
 		switch (direction) {
 			case NORTH: //north
-				y+=yIncr;
+				y-=yIncr;
 
 				break;
 			
 			case NORTHEAST: //north east
 				x+=xIncr; 
 				y-=yIncr;
-;
 				break;
 				
 			case EAST: //east
@@ -96,8 +96,9 @@ public class Model{
 		}
 		}
 		
-		
-}
+			
+	}
+
 	
 	private void checkCollision() {
 		/*
@@ -133,30 +134,68 @@ public class Model{
 		/*
 		 * sets the direction variable based on the change of direction flags
 		 */
-		if (up)
+		
+		if (up && forward)
 		{
-			if(forward) {
-				direction = Direction.NORTHEAST;
-			}
-			else if (backward){
-				direction=Direction.NORTHWEST;
-			}
-			else {
-				direction=Direction.NORTH;
-			}
+			direction = Direction.NORTHEAST;
 		}
-		if (down)
+		else if (up && backward)
 		{
-			if(forward) {
-				direction=Direction.SOUTHEAST;
-			}
-			else if (backward){
-				direction=Direction.SOUTHWEST;			
-				}
-			else {
-				direction=Direction.SOUTH;
-				}
+			direction = Direction.NORTHWEST;
+		}
+		else if (down && forward)
+		{
+			direction = Direction.SOUTHEAST;
+		}
+		else if (down && backward)
+		{
+			direction = Direction.SOUTHWEST;
+		}
+		else if (backward)
+		{
+			direction = Direction.WEST;
+		}
+		else if(up)
+		{
+			direction = Direction.NORTH;
+		}
+		else if (down)
+		{
+			direction = Direction.SOUTH;
+		}
+		else if (forward)
+		{
+			direction = Direction.EAST;
 		}
 
+	}
+	private void keyToDirec(int k)
+	{
+		if(k == 37)
+		{
+			forward=false;
+			backward=true;
+			up = false;
+			down=false;
+		}
+		if(k==38) {
+			up=true;
+			down=false;
+			forward=false;
+			backward=false;
+		}
+		if(k == 39)
+		{
+			forward=true;
+			backward=false;
+			up = false;
+			down=false;
+		}
+		if(k==40) {
+			up=false;
+			down=true;
+			forward=false;
+			backward=false;
+		}
 	}
 }

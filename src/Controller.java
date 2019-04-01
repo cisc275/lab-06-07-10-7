@@ -7,31 +7,58 @@ import java.awt.event.*;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JTextField;
 import javax.swing.Timer;
-public class Controller implements ActionListener{
+public class Controller implements ActionListener, KeyListener{
 
 	private Model model;
 	private View view;
-	private boolean start_stop=true;
+	private boolean start_stop=false;
 	int drawDelay = 30;
+	int dirKey;
 	
 	Action drawAction;
 	
-	public Controller() {
+	public Controller() 
+	{
 		view = new View();
 		System.out.println("View Initiaized");
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		System.out.println("Model Initiaized");
-		view.b1.addActionListener(this);
+		view.getButton().addActionListener(this);
+		view.frame.addKeyListener(this);
+		  
 		
-		drawAction = new AbstractAction(){
-			public void actionPerformed(ActionEvent e){
+		drawAction = new AbstractAction()
+    {
+			public void actionPerformed(ActionEvent e)
+      {
     			//increment the x and y coordinates, alter direction if necessary
-				model.updateLocationAndDirection(start_stop);
+				model.updateLocationAndDirection(start_stop,dirKey);			
     			//update the view
     			view.update(model.getX(), model.getY(), model.getDirect(), start_stop);
     		}
     	};
+	}
+	
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyCode());
+		dirKey=e.getKeyCode();
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		dirKey=0;
 	}
 	
 	public void actionPerformed(ActionEvent a)
@@ -40,16 +67,17 @@ public class Controller implements ActionListener{
 	}
 	
         //run the simulation
-	public void start(){
-	
-		EventQueue.invokeLater(new Runnable(){
-			public void run(){
-				
+	public void start()
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+      {
 				Timer t = new Timer(drawDelay, drawAction);
 				t.start();
-				
 			}
 		});
 	}
-	}
+}
+
 

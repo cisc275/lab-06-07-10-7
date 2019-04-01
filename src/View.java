@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 
 
@@ -26,7 +27,7 @@ import javax.swing.JButton;
 //test 
 public class View extends JPanel{
 
-	public JButton b1;
+	private JButton b1;
 	final static int imageWidth=165;
 	final static int imageHeight=165;
 	final int frameCount =10;
@@ -84,7 +85,9 @@ public class View extends JPanel{
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
+    	frame.setFocusable(true);
     	frame.setVisible(true);	
+    	//update(0,0,direction, false);
     	
 	}
 	
@@ -101,6 +104,10 @@ public class View extends JPanel{
 		return imageHeight;
 	}
 	
+	public JButton getButton()
+	{
+		return b1;
+	}
 	public void update(int x, int y, Direction d, boolean start_stop) {
 		/*
 		 * Calls the updates the frame and calls the repaint function
