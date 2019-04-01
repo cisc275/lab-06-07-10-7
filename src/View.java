@@ -86,6 +86,7 @@ public class View extends JPanel{
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameWidth, frameHeight);
     	frame.setFocusable(true);
+    	frame.requestFocus();
     	frame.setVisible(true);	
     	//update(0,0,direction, false);
     	
@@ -118,11 +119,11 @@ public class View extends JPanel{
 		xPos=x;
 		yPos=y;
 
-		frame.repaint();
+		
 		/* changed repaint to always run,
 		 * switched control of images to paint function
 		 */
-		
+		frame.repaint();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

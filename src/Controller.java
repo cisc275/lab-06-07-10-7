@@ -13,7 +13,7 @@ public class Controller implements ActionListener, KeyListener{
 
 	private Model model;
 	private View view;
-	private boolean start_stop=false;
+	private boolean start_stop=true;
 	int drawDelay = 30;
 	int dirKey;
 	
@@ -72,7 +72,7 @@ public class Controller implements ActionListener, KeyListener{
 		EventQueue.invokeLater(new Runnable()
 		{
 			public void run()
-      {
+			{
 				Timer t = new Timer(drawDelay, drawAction);
 				t.start();
 			}
